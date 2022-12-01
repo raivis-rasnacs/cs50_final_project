@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block body_products %}
+    {% for product in data %}
+            <div class="product-card card">
+                <img class="card-img-top product-img" src="static/images/products/{{ product[6] }}" alt="">
+                
+                    <h5 class="card-title" style="padding-bottom: 0px;">{{ product[1] }} {{ product[2] }}</h5>
+                    <p class="card-text" style="padding-top: 0px;">{{ product[3][:25] }}...</p>
+                
+            </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+.product-card {
+    min-width: 150px;
+    width: 15%;
+    margin: 10px;
+    max-height: 20%;
+    display: inline-block;
+}
+
+.product-card > * {
+    padding: 10px;
+}
