@@ -5,13 +5,24 @@
 {% endblock %}
 
 {% block body_products %}
-    {% for product in data %}
+    {% for product in products %}
             <div class="product-card card">
+                {% if product[6] != None %}
                 <img class="card-img-top product-img" src="static/images/products/{{ product[6] }}" alt="">
-                
+                {% else %}
+                <img class="card-img-top product-img" src="static/images/products/no-photo.jpg" alt="">
+                {% endif %}
                     <h5 class="card-title" style="padding-bottom: 0px;">{{ product[1] }} {{ product[2] }}</h5>
                     <p class="card-text" style="padding-top: 0px;">{{ product[3][:25] }}...</p>
                 
             </div>
+    {% endfor %}
+{% endblock %}
+
+{% block filters %}
+    {% for category in categories %}
+        <li class="nav-item">
+            <a class="nav-link" href="">{{ category[1] }}</a>
+        </li>
     {% endfor %}
 {% endblock %}

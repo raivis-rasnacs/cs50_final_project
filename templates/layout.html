@@ -3,7 +3,7 @@
 <html lang="en">
 
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Daddy's Tools: {% block title %}{% endblock %}</title>
@@ -55,17 +55,27 @@
         {% endif %}
 
         <div class="container-fluid">
+
             <div class="row">
-                <div class="col-2 bg-primary h-100">
-                    
+
+                <!-- Filter col -->
+                <div class="col-xs-12 col-lg-2 h-100">
+                    <ul class="nav">
+                        {% block filters %}
+                        {% endblock %}
+                    </ul>
                 </div>
-                <div class="col-10 h-100">
+
+                <!-- Content col -->
+                <div class="col-xs-12 col-lg-10 h-100">
                     <div class="card-columns">
                         {% block body_products %}
                         {% endblock %}
                     </div>
                 </div>
             </div>
+
+
         </div>
 
 

@@ -9,3 +9,24 @@
 .product-card > * {
     padding: 10px;
 }
+
+.row .nav-item {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    margin: 10px 10px 0px 10px;
+}
+
+.nav-item > a {
+    color: black;
+}
+
+.navbar {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+@media only screen and (min-width: 992px) {
+    /* For mobile phones: */
+    .nav-item {
+      width: 100%;
+    }
+  }

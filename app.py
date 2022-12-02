@@ -25,6 +25,7 @@ def after_request(response):
 def index():
     res = cur.execute("SELECT * FROM Products;")
     products = res.fetchall()
-    print(products)
+    res = cur.execute("SELECT * FROM Categories;")
+    categories = res.fetchall()
 
-    return render_template("index.html", data=products)
+    return render_template("index.html", products=products, categories=categories)
