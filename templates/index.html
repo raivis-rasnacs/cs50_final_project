@@ -12,17 +12,34 @@
                 {% else %}
                 <img class="card-img-top product-img" src="static/images/products/no-photo.jpg" alt="">
                 {% endif %}
-                    <h5 class="card-title" style="padding-bottom: 0px;">{{ product[1] }} {{ product[2] }}</h5>
-                    <p class="card-text" style="padding-top: 0px;">{{ product[3][:25] }}...</p>
+                <h5 class="card-title">{{ product[1] }} {{ product[2] }}</h5>
+                <h6 class="card-text">{{ product[5] }}€</h6>
+                <!--<p class="card-text">{{ product[3][:25] }}...</p>-->
                 
             </div>
     {% endfor %}
 {% endblock %}
 
-{% block filters %}
+{% block categories %}
     {% for category in categories %}
         <li class="nav-item">
-            <a class="nav-link" href="">{{ category[1] }}</a>
+            <!-- <a class="nav-link" href="">{{ category[1] }}</a> -->
+            <button class="nav-link" onclick="document.getElementById('selectedCategory').value = this.textContent; document.getElementById('selectCategory').submit();">{{ category[1] }}</button>
         </li>
     {% endfor %}
 {% endblock %}
+
+{% block filters %}
+<div id="filters" class="container-fluid">
+    <button onclick="document.getElementById('order').value='toLowest'; document.getElementById('applyFilter').submit();" class="nav-item filter-btn">Price (to lowest)</button>
+    <button onclick="document.getElementById('order').value='toHighest'; document.getElementById('applyFilter').submit();" class="nav-item filter-btn">Price (to highest)</button>
+
+    <form id="applyFilter" action="/" method="post">
+        <input hidden id="selectedCategory" name="selectedCategory" value="{{ selectedCategory }}" type="text"></input>
+        <input hidden id="order" name="order" type="text"></input>
+    </form>
+</div>
+
+<p>{{ selectedCategory }}</p>
+{% endblock %}
+

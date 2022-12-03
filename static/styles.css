@@ -10,10 +10,22 @@
     padding: 10px;
 }
 
-.row .nav-item {
+#filters {
+    padding: 0px 10px 0px 10px;
+}
+
+.nav > .nav-item {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
     margin: 10px 10px 0px 10px;
+}
+
+#filters .filter-btn {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    margin: 10px 0px 0px 0px;
+    padding: 5px 15px 5px 15px;
 }
 
 .nav-item > a {
@@ -24,9 +36,21 @@
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
+button.nav-link {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.product-card > p, h5 {
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+
 @media only screen and (min-width: 992px) {
     /* For mobile phones: */
-    .nav-item {
+    .nav > .nav-item {
       width: 100%;
     }
   }

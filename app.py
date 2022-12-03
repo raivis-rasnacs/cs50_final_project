@@ -21,11 +21,33 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-@app.route("/")
+@app.route("/", methods = ['GET', 'POST'])
 def index():
-    res = cur.execute("SELECT * FROM Products;")
-    products = res.fetchall()
-    res = cur.execute("SELECT * FROM Categories;")
-    categories = res.fetchall()
+    if request.method == "GET":
+        res = cur.execute("SELECT * FROM Products ORDER BY Price;")
+        products = res.fetchall()
+        res = cur.execute("SELECT * FROM Categories;")
+        categories = res.fetchall()
+        return render_template("index.html", products=products, categories=categories)
 
-    return render_template("index.html", products=products, categories=categories)
+    elif request.method == "POST":
+        selectedCategory = request.form.get("categoryFilter")
+        order = request.form.get("order")
+        res = cur.execute("SELECT * FROM Categories;")
+        categories = res.fetchall()
+        print(selectedCategory, order)
+        if order is not None:
+            if order == "toLowest":
+                res = cur.execute("SELECT * FROM Products WHERE Category_id = (SELECT id FROM Categories WHERE Name = ?)", (selectedCategory,))
+            else:
+                res = cur.execute("SELECT * FROM Products WHERE Category_id = (SELECT id FROM Categories WHERE Name = ?) ORDER BY Price ASC", (selectedCategory,))
+            productsOfCategory = res.fetchall()
+            print(productsOfCategory)
+            return render_template("index.html", products=productsOfCategory, categories=categories, selectedCategory=selectedCategory)
+        else:
+            res = cur.execute("SELECT * FROM Products WHERE Category_id = (SELECT id FROM Categories WHERE Name = ?)", (selectedCategory,))
+            productsOfCategory = res.fetchall()
+            return render_template("index.html", products=productsOfCategory, categories=categories, selectedCategory=selectedCategory)
+
+if __name__ == "__main__":
+    app.run(debug=True)
