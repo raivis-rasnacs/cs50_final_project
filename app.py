@@ -21,6 +21,18 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+@app.route("/filter", methods = ['GET', 'POST'])
+def filter_products():
+    if request.method == "POST":
+        res = cur.execute("SELECT * FROM Categories;")
+        categories = res.fetchall()
+        selectedCategories = request.get_json()["selectedCategories"]
+        productsInCategories = []
+        for category in selectedCategories:
+            res = cur.execute("SELECT * FROM Products WHERE Category_ID = (SELECT ID FROM Categories WHERE Name = ?)", (category,))
+            productsInCategories += res.fetchall()
+        return {"products":productsInCategories}
+
 @app.route("/", methods = ['GET', 'POST'])
 def index():
     if request.method == "GET":

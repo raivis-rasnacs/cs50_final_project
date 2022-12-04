@@ -23,8 +23,8 @@
 {% block categories %}
     {% for category in categories %}
         <li class="nav-item">
-            <!-- <a class="nav-link" href="">{{ category[1] }}</a> -->
-            <button class="nav-link" onclick="document.getElementById('selectedCategory').value = this.textContent; document.getElementById('selectCategory').submit();">{{ category[1] }}</button>
+            <input type="checkbox" class="form-check-input category-item" name="{{ category[1] }}">
+            <label for="{{ category[1] }}" class="form-check-label">{{ category[1] }}</label>
         </li>
     {% endfor %}
 {% endblock %}
