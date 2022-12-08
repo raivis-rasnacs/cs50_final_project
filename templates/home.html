@@ -4,6 +4,31 @@
     Daddy's Tools
 {% endblock %}
 
-{% block body %}
-    Daddy's Tools
+{% block head_inners %}
+    <script defer src="static/bannerFetch.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="banner">
+        <h1 style="
+            padding-left:50px;
+            padding-top: 80px;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 3em;
+            color: red;
+            "
+            >Discount sales...</h1>
+            <h1 style="
+            padding-left:70px;
+            padding-top: 0px;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 5em;
+            color: blue;
+            "
+            >Just today</h1>
+            <ul id="productsBannerList">
+            </ul>
+    </div>
 {% endblock %}

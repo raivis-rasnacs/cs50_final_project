@@ -3,29 +3,27 @@
 {% block title %}
     Products
 {% endblock %}
-<!--
-{% block body_products %}
-    {% for product in products %}
-            <div class="product-card card">
-                {% if product[6] != None %}
-                <img class="card-img-top product-img" src="static/images/products/{{ product[6] }}" alt="">
-                {% else %}
-                <img class="card-img-top product-img" src="static/images/products/no-photo.jpg" alt="">
-                {% endif %}
-                <h5 class="card-title">{{ product[1] }} {{ product[2] }}</h5>
-                <h6 class="card-text">{{ product[5] }}€</h6>
-                
-            </div>
-    {% endfor %}
+
+{% block head_inners %}
+    <script defer src="static/filtersFetch.js"></script>
 {% endblock %}
--->
-{% block categories %}
-    {% for category in categories %}
-        <li class="nav-item">
-            <input type="checkbox" class="form-check-input category-item" name="{{ category[1] }}">
-            <label for="{{ category[1] }}" class="form-check-label">{{ category[1] }}</label>
-        </li>
-    {% endfor %}
+
+{% block secondary_content %}
+    <ul class="nav">
+        {% for category in categories %}
+            <li class="nav-item">
+                <input type="checkbox" class="form-check-input category-item" name="{{ category[1] }}">
+                <label for="{{ category[1] }}" class="form-check-label">{{ category[1] }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+    <button class="btn btn-primary" onclick="filtersFetch()" style="margin-top: 10px; width: 100%;">Apply filters</button>
+    <hr>
+{% endblock %}
+
+{% block content %}
+    <div id="productsGrid" class="card-columns">
+    </div>
 {% endblock %}
 
 {% block filters %}

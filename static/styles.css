@@ -1,3 +1,7 @@
+.main-content > #banner {
+    margin-top: 10px;
+}
+
 .product-card {
     min-width: 150px;
     width: 15%;
@@ -54,3 +58,32 @@ button.nav-link {
       width: 100%;
     }
   }
+
+/* Home page */
+#banner {
+    width: 100%;
+    height: 700px;
+    /*background-image: url("/static/images/home-banner.jpg");*/
+}
+
+#productsBannerList > li {
+    display: inline-block;
+}
+
+.bannerProductImg {
+    width: 100%;
+}
+
+.bannerProductDiv {
+    width: 250px;
+    margin: 30px;
+}
+
+.oldPriceTag {
+    text-decoration: line-through;
+}
+
+.newPriceTag {
+    color: red;
+    font-weight: bold;
+}

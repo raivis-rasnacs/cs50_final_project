@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlite3 import connect
+from random import sample
 
 # Configure application
 app = Flask(__name__)
@@ -20,6 +21,18 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
+@app.route("/home", methods = ['GET', 'POST'])
+def home():
+    if request.method == "POST":
+        numOfProducts = request.get_json()["numberOfProducts"]
+        res = cur.execute("SELECT * FROM Products;")
+        products = res.fetchall()
+        randomProducts = sample(products, k=numOfProducts)
+        print(randomProducts)
+        return {"products":randomProducts}
+    else:
+        return render_template("home.html")
 
 @app.route("/filter", methods = ['GET', 'POST'])
 def filter_products():

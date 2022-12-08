@@ -1,7 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-    filtersFetch();
-  });
-
 function filtersFetch() {
     var categories = document.getElementsByClassName('category-item');
     var selectedCategories = [];
@@ -60,4 +56,4 @@ function showFiltered(products) {
         productsGrid.append(productCard);
     }
 }
-
+filtersFetch();
