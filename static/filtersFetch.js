@@ -1,9 +1,21 @@
-function filtersFetch(categories) {
+document.addEventListener("DOMContentLoaded", function() {
+    filtersFetch();
+  });
+
+function filtersFetch() {
+    var categories = document.getElementsByClassName('category-item');
     var selectedCategories = [];
+    var allCategories = [];
+    
     for (cat of categories) {
+        allCategories.push(cat.name);
         if (cat.checked == true) {
             selectedCategories.push(cat.name);
         }
+    }
+    
+    if (selectedCategories == 0) {
+        selectedCategories = [...allCategories];
     }
 
     fetch("/filter",
@@ -46,7 +58,6 @@ function showFiltered(products) {
         }
         
         productsGrid.append(productCard);
-        
     }
 }
 

@@ -16,9 +16,9 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-light">
+        <nav class="navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
-                <div class="navbar-brand"><span><a href="/">Daddy's Tools</a></span></div>
+                <div class="navbar-brand"><span><a href="/home">Daddy's Tools</a></span></div>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -27,6 +27,7 @@
 
                     <!-- Nav links to the left -->
                     <ul class="navbar-nav me-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/products">Products</a></li>
                         <li class="nav-item"><a class="nav-link" href="/">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="/">Payment</a></li>
                         <li class="nav-item"><a class="nav-link" href="/">Delivery</a></li>
@@ -65,7 +66,7 @@
                         {% block categories %}
                         {% endblock %}
                     </ul>
-                    <button class="btn btn-primary" onclick="filtersFetch(document.getElementsByClassName('category-item'))" style="margin-top: 10px; width: 100%;">Apply filters</button>
+                    <button class="btn btn-primary" onclick="filtersFetch()" style="margin-top: 10px; width: 100%;">Apply filters</button>
                     <hr>
 
                     <form id="selectCategory" action="/" method="post">
@@ -78,10 +79,11 @@
                     {% block filters %}
                     {% endblock %}
                     
+                    {% block content %}
                     <div id="productsGrid" class="card-columns">
-                        {% block body_products %}
-                        {% endblock %}
                     </div>
+                    {% endblock %}
+                    
                 </div>
             </div>
 
