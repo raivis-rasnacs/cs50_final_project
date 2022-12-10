@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin Corner
+{% endblock %}
+
+{% block head_inners %}
+    <link rel="stylesheet" href="static/admin_styles.css">
+    <script defer src="static/tabs.js"></script>
+    <script defer src="static/fetchTabs.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="users-tab" onclick="fetchData(this.getAttribute('aria-controls'));" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="products-tab" onclick="fetchData(this.getAttribute('aria-controls'));" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="categories-tab" onclick="fetchData(this.getAttribute('aria-controls'));" data-toggle="tab" href="#categories" role="tab" aria-controls="categories" aria-selected="false">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="orders-tab" onclick="fetchData(this.getAttribute('aria-controls'));" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+              </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+                <!-- Users table -->
+                <table class="table" id="users-table">
+                    <tr>
+                        <td>ID</td>
+                        <td>Username</td>
+                        <td>Password</td>
+                        <td>First_name</td>
+                        <td>Last_name</td>
+                        <td>E-mail</td>
+                        <td>Phone</td>
+                        <td>Address</td>
+                        <td>Admin</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
+                <!-- Products table -->
+                <table class="table" id="products-table">
+                    <tr>
+                        <td>ID</td>
+                        <td>Brand</td>
+                        <td>Model</td>
+                        <td>Description</td>
+                        <td>Category</td>
+                        <td>Price</td>
+                        <td>Image_file</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="categories" role="tabpanel" aria-labelledby="categories-tab">
+                <!-- Categories table -->
+                <table class="table" id="categories-table">
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Description</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                <!-- Orders table -->
+                <table class="table" id="orders-table">
+                    <tr>
+                        <td>ID</td>
+                        <td>Customer ID</td>
+                        <td>Order date</td>
+                        <td>Delivery type</td>
+                    </tr>
+                </table>
+            </div>
+          </div>
+    </div>
+{% endblock %}

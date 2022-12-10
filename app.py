@@ -22,6 +22,18 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+@app.route("/admin")
+def admin():
+    return render_template("admin.html")
+
+@app.route("/admin/data", methods = ['GET', 'POST'])
+def admin_data():
+    tableName = request.get_json()["selectedTab"].capitalize()
+    res = cur.execute("SELECT * FROM {}".format(tableName))
+    tableData = res.fetchall()
+    print(tableData)
+    return {"data":tableData}
+
 @app.route("/products/<id>")
 def show_product(id):
     res = cur.execute("SELECT * FROM Products WHERE id = ?", (id[1:-1], ))
