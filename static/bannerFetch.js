@@ -1,5 +1,5 @@
 function bannerFetch() {
-    fetch("/home",
+    fetch("/",
     {
         headers : {
             'Content-Type' : 'application/json'

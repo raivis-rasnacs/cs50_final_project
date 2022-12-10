@@ -38,6 +38,8 @@ function showFiltered(products) {
     console.log(products);
     
     for (product of products["products"]) {
+        var productLink = document.createElement("a");
+        productLink.setAttribute("href", `products/<${product[0]}>`)
         var productCard = document.createElement("div");
         productCard.classList.add("product-card", "card");
         if (product[6] == null) {
@@ -53,7 +55,8 @@ function showFiltered(products) {
             <h6 class="card-text">${product[5]}€</h6>`
         }
         
-        productsGrid.append(productCard);
+        productLink.append(productCard);
+        productsGrid.append(productLink);
     }
 }
 filtersFetch();

@@ -22,7 +22,14 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-@app.route("/home", methods = ['GET', 'POST'])
+@app.route("/products/<id>")
+def show_product(id):
+    res = cur.execute("SELECT * FROM Products WHERE id = ?", (id[1:-1], ))
+    product = res.fetchall()
+    print(product)
+    return render_template("product_page.html", product=product[0])
+
+@app.route("/", methods = ['GET', 'POST'])
 def home():
     if request.method == "POST":
         numOfProducts = request.get_json()["numberOfProducts"]

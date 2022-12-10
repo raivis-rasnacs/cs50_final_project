@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Daddy's Tools
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <a href="/static/images/products/{{ product[6] }}">
+                    {% if product[6] != None %}
+                        <img style="width:100%;" src="/static/images/products/{{ product[6] }}" alt="product_photo">
+                    {% else %}
+                        <img style="width:100%;" src="/static/images/products/no-photo.jpg" alt="product_photo">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col-12 col-md-8" style="padding: 30px;">
+                <h1>{{ product[1] }} {{ product[2] }}</h1>
+                <h2>{{ product[3] }}</h2>
+                <h2>Price: {{ product[5] }}$</h2>
+                <button class="btn btn-primary">Add to cart</button><br>
+            </div>
+        </div>
+    </div>
+    
+    
+{% endblock %}
