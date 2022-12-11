@@ -29,6 +29,7 @@ function showContent(data, selectedTabName) {
         }
         table.append(row);
     }
+
 }
 
 function clearTable(table) {

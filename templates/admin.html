@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="static/admin_styles.css">
     <script defer src="static/tabs.js"></script>
     <script defer src="static/fetchTabs.js"></script>
+    <script defer src="static/admin_actions.js"></script>
+{% endblock %}
+
+{% block secondary_content %}
+<div id="admin-actions">
+    <button onclick="newRecord()" class='btn btn-primary'>Add new record</button>
+    <button onclick="save()" class='btn btn-primary'>Save changes</button>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -36,7 +44,7 @@
                         <td>Password</td>
                         <td>First_name</td>
                         <td>Last_name</td>
-                        <td>E-mail</td>
+                        <td>E_mail</td>
                         <td>Phone</td>
                         <td>Address</td>
                         <td>Admin</td>
