@@ -1,3 +1,5 @@
+fetchData("users");
+
 function fetchData(selectedTabName) {
     fetch("/admin/data",
     {

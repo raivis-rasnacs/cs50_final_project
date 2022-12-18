@@ -1,11 +1,13 @@
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlite3 import connect
 from random import sample
+import sqlite3
 
 # Configure application
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -26,13 +28,46 @@ def after_request(response):
 def admin():
     return render_template("admin.html")
 
+# Responds to fetch with table contents
 @app.route("/admin/data", methods = ['GET', 'POST'])
 def admin_data():
     tableName = request.get_json()["selectedTab"].capitalize()
     res = cur.execute("SELECT * FROM {}".format(tableName))
     tableData = res.fetchall()
-    print(tableData)
     return {"data":tableData}
+
+@app.route("/admin/save", methods = ['GET', 'POST'])
+def admin_data_save():
+    global conn
+    data = request.get_json()["dataToSave"]
+    table = request.get_json()["table"]
+    res = cur.execute("SELECT ID FROM {}".format(table))
+    currentIDs = res.fetchall()
+    currentIDs = [str(id[0]) for id in currentIDs]
+    print(currentIDs)
+    
+    for record in data:
+        if data[record]["ID"] not in currentIDs:
+            print(data[record])
+            if table == "users":
+                sql = ''' INSERT INTO Users(Username,Password,First_name,Last_name,E_mail,Phone,Address,Admin)
+                VALUES(?,?,?,?,?,?,?,?) '''
+                try:
+                    cur.execute(sql, (
+                            data[record]["Username"], 
+                            data[record]["Password"], 
+                            data[record]["First_name"], 
+                            data[record]["Last_name"], 
+                            data[record]["E_mail"], 
+                            data[record]["Phone"], 
+                            data[record]["Address"], 
+                            data[record]["Admin"]
+                    ))
+                    con.commit()
+                except sqlite3.Error as e:
+                    flash("Something went wrong...")
+                    print(e)
+    return {}
 
 @app.route("/products/<id>")
 def show_product(id):
