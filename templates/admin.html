@@ -5,16 +5,15 @@
 {% endblock %}
 
 {% block head_inners %}
-    <link rel="stylesheet" href="static/admin_styles.css">
-    <script defer src="static/tabs.js"></script>
-    <script defer src="static/fetchTabs.js"></script>
-    <script defer src="static/admin_actions.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_styles.css') }}">
+    <script defer src="{{ url_for('static', filename='tabs.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='fetchTabs.js') }}"></script>
 {% endblock %}
 
 {% block secondary_content %}
 <div id="admin-actions">
-    <button onclick="newRecord()" class='btn btn-primary'>Add new record</button>
-    <button onclick="saveChanges()" class='btn btn-primary'>Save changes</button>
+    <a href="/admin"><button class='btn btn-primary'>View data</button></a>
+    <a href="/admin/new_product"><button class='btn btn-primary'>Add product</button></a>
 </div>
 {% endblock %}
 

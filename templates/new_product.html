@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Admin Corner
+{% endblock %}
+
+{% block head_inners %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_styles.css') }}">
+    <script src="{{ url_for('static', filename='saveProduct.js') }}"></script>
+{% endblock %}
+
+{% block secondary_content %}
+<div id="admin-actions">
+    <a href="/admin"><button class='btn btn-primary'>View data</button></a>
+    <a href="/admin/new_product"><button class='btn btn-primary'>Add product</button></a>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div id="container">
+        <p style="margin-top: 10px;">Brand</p>
+        <input id="product-brand" type="text" class="form-control" name="brand"></input>
+        <p>Model</p>
+        <input id="product-model" type="text" class="form-control" name="model"></input>
+        <p>Description</p>
+        <input id="product-description" type="text" class="form-control" name="description"></input>
+        <p>Category</p>
+        <select id="product-category" class="form-select" name="category">
+        <option selected disabled value="default">Choose a category</option>
+        {% for category in categories %}
+            <option value="{{ category[0] }}">{{ category[0] }}</option>
+        {% endfor %}
+        </select>
+        <p>Price</p>
+        <input id="product-price" type="text" class="form-control" name="price"></input>
+        <p>Image file</p>
+        <input id="product-image" type="file" class="form-control" name="image"></input><br>
+        <button onclick="saveProduct()" style="width: 150px;" class="btn btn-primary">Save</button>
+    </div>
+{% endblock %}

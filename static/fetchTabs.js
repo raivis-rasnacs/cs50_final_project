@@ -1,7 +1,7 @@
 fetchData("users");
 
 function fetchData(selectedTabName) {
-    fetch("/admin/data",
+    fetch("/admin/view_data",
     {
         headers : {
             'Content-Type' : 'application/json'

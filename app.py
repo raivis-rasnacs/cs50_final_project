@@ -1,12 +1,19 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 from sqlite3 import connect
 from random import sample
 import sqlite3
+import os
 
 # Configure application
-app = Flask(__name__)
+UPLOAD_FOLDER = "/static/images/products"
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+
+app = Flask(__name__,
+            static_url_path="/static",
+            static_folder="static")
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Ensure templates are auto-reloaded
@@ -29,45 +36,57 @@ def admin():
     return render_template("admin.html")
 
 # Responds to fetch with table contents
-@app.route("/admin/data", methods = ['GET', 'POST'])
+@app.route("/admin/view_data", methods = ['GET', 'POST'])
 def admin_data():
     tableName = request.get_json()["selectedTab"].capitalize()
-    res = cur.execute("SELECT * FROM {}".format(tableName))
-    tableData = res.fetchall()
+    if tableName == "Products":
+        res = cur.execute("SELECT Products.ID, Brand, Model, Products.Description, Name, Price, Image_file FROM Products INNER JOIN Categories ON Categories.id = Products.Category_ID;")
+        tableData = res.fetchall()
+        print(tableData)
+    else:
+        res = cur.execute("SELECT * FROM {}".format(tableName))
+        tableData = res.fetchall()
     return {"data":tableData}
 
-@app.route("/admin/save", methods = ['GET', 'POST'])
-def admin_data_save():
-    global conn
-    data = request.get_json()["dataToSave"]
-    table = request.get_json()["table"]
-    res = cur.execute("SELECT ID FROM {}".format(table))
-    currentIDs = res.fetchall()
-    currentIDs = [str(id[0]) for id in currentIDs]
-    print(currentIDs)
-    
-    for record in data:
-        if data[record]["ID"] not in currentIDs:
-            print(data[record])
-            if table == "users":
-                sql = ''' INSERT INTO Users(Username,Password,First_name,Last_name,E_mail,Phone,Address,Admin)
-                VALUES(?,?,?,?,?,?,?,?) '''
-                try:
-                    cur.execute(sql, (
-                            data[record]["Username"], 
-                            data[record]["Password"], 
-                            data[record]["First_name"], 
-                            data[record]["Last_name"], 
-                            data[record]["E_mail"], 
-                            data[record]["Phone"], 
-                            data[record]["Address"], 
-                            data[record]["Admin"]
-                    ))
-                    con.commit()
-                except sqlite3.Error as e:
-                    flash("Something went wrong...")
-                    print(e)
-    return {}
+@app.route("/admin/new_product", methods = ['GET', 'POST'])
+def add_product():
+    if request.method == "POST":
+        global conn
+        productData = request.get_json()["productData"]
+        print(request.files)
+        #if request.files:
+        #    image = request.files["image"]
+        #    filename = secure_filename(image.filename)
+        #    image.save(os.path.join(app.config[UPLOAD_FOLDER], filename))
+        
+        sql = ''' INSERT INTO Products(Brand,Model,Description,Category_ID,Price,Image_file)
+                    VALUES(?,?,?,?,?,?) '''
+        
+        if not "Image_file" in productData: productData["Image_file"] = "no-photo.jpg" 
+        print(productData["Category"])
+        
+        res = cur.execute("SELECT ID FROM Categories WHERE Name = ?", (productData["Category"], ))
+        category = res.fetchall()[0]
+
+        try:
+            cur.execute(sql, (
+                    productData["Brand"], 
+                    productData["Model"], 
+                    productData["Description"], 
+                    category[0], 
+                    productData["Price"], 
+                    productData["Image_file"]
+            ))
+            con.commit()
+            return {"message":"Product added!"}
+        except sqlite3.Error as e:
+            print(e)
+            return {"message":"Kļūda!"}
+    else:
+        res = cur.execute("SELECT Name FROM Categories;")
+        categories = res.fetchall()
+        print("hop")
+        return render_template("new_product.html", categories=categories)
 
 @app.route("/products/<id>")
 def show_product(id):

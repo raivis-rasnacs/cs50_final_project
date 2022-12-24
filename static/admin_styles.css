@@ -2,6 +2,9 @@
     .nav > .nav-item {
       width: auto !important;
     }
+    input {
+      width: 200px;
+    }
   }
 
 .table>:not(:first-child) {
@@ -14,21 +17,25 @@
   padding-bottom: 5px;
 }
 
-#admin-actions > button {
+#admin-actions button {
   width: 100%;
 }
 
-#admin-actions > button:first-child {
+#admin-actions button:first-child {
   margin-top: 10px;
   border-top-right-radius: 0.25rem;
   border-top-left-radius: 0.25rem;
 }
 
-#admin-actions > button:last-child {
+#admin-actions button:last-child {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-#admin-actions > button {
+#admin-actions button {
   border-radius: 0px;
+}
+
+p {
+  margin: 0px;
 }
