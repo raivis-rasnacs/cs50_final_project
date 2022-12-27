@@ -18,23 +18,24 @@
 
 {% block content %}
     <div id="container">
-        <p style="margin-top: 10px;">Brand</p>
-        <input id="product-brand" type="text" class="form-control" name="brand"></input>
-        <p>Model</p>
-        <input id="product-model" type="text" class="form-control" name="model"></input>
-        <p>Description</p>
-        <input id="product-description" type="text" class="form-control" name="description"></input>
-        <p>Category</p>
-        <select id="product-category" class="form-select" name="category">
-        <option selected disabled value="default">Choose a category</option>
-        {% for category in categories %}
-            <option value="{{ category[0] }}">{{ category[0] }}</option>
-        {% endfor %}
-        </select>
-        <p>Price</p>
-        <input id="product-price" type="text" class="form-control" name="price"></input>
-        <p>Image file</p>
-        <input id="product-image" type="file" class="form-control" name="image"></input><br>
-        <button onclick="saveProduct()" style="width: 150px;" class="btn btn-primary">Save</button>
+        <form action="/admin/new_product" method="POST" enctype="multipart/form-data">
+            <p style="margin-top: 10px;">Brand</p>
+            <input required id="product-brand" type="text" class="form-control" name="brand"></input>
+            <p>Model</p>
+            <input required id="product-model" type="text" class="form-control" name="model"></input>
+            <p>Description</p>
+            <input required id="product-description" type="text" class="form-control" name="description"></input>
+            <p>Category</p>
+            <select required id="product-category" class="form-select" name="category">
+            {% for category in categories %}
+                <option value="{{ category[0] }}">{{ category[0] }}</option>
+            {% endfor %}
+            </select>
+            <p>Price</p>
+            <input required id="product-price" type="text" class="form-control" name="price"></input>
+            <p>Image file</p>
+            <input required id="product-image" type="file" class="form-control" name="image"></input><br>
+            <input type="submit" style="width: 150px;" class="btn btn-primary" value="Save"></input>
+        </form>
     </div>
 {% endblock %}

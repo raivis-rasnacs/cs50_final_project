@@ -14,7 +14,7 @@ function filtersFetch() {
         selectedCategories = [...allCategories];
     }
 
-    fetch("/filter",
+    fetch("/products/filter",
     {
         headers : {
             'Content-Type' : 'application/json'
