@@ -1,0 +1,22 @@
+form input {
+    margin-top: 10px;
+}
+
+#register-form {
+    width: 500px;
+}
+
+#login-form {
+    width: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+    /* For mobile phones: */
+    #register-form {
+        width: 100%;
+    }
+
+    #login-form {
+        width: 100%;
+    }
+  }
