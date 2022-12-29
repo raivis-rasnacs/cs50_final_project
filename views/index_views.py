@@ -8,7 +8,6 @@ def index():
         res = cur.execute("SELECT * FROM Products;")
         products = res.fetchall()
         randomProducts = sample(products, k=numOfProducts)
-        print(randomProducts)
         return {"products":randomProducts}
     else:
         return render_template("home.html")

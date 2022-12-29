@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block head_inners %}
-    <script defer src="static/filtersFetch.js"></script>
+    <script defer src="{{ url_for('static', filename='js/filtersFetch.js') }}"></script>
 {% endblock %}
 
 {% block secondary_content %}

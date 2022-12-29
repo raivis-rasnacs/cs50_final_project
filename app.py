@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 from random import sample
-from views import index_views, admin_views, product_views, auth_views, custom_views
+from views import index_views, admin_views, product_views, auth_views, custom_views, cart_views
 import db_conn
 import os
 
@@ -35,6 +35,10 @@ app.add_url_rule('/products/filter', view_func=product_views.filter_products)
 app.add_url_rule('/register', view_func=auth_views.register)
 app.add_url_rule('/login', view_func=auth_views.login)
 app.add_url_rule('/logout', view_func=auth_views.logout)
+
+# Cart
+app.add_url_rule('/add_to_cart/<id>', view_func=cart_views.add_to_cart)
+app.add_url_rule('/view_cart', view_func=cart_views.view_cart)
 
 # Custom views
 app.add_url_rule('/about', view_func=custom_views.about)

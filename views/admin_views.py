@@ -2,11 +2,16 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from db_conn import cur, con
 from helpers import allowed_file
 from werkzeug.utils import secure_filename
+from uuid import uuid4
 import os
 import sqlite3
 
 def admin():
-    return render_template("admin.html")
+    if session["user_role"] == 1:
+        return render_template("admin.html")
+    else:
+        flash("You must be admin to view this page")
+        return redirect(url_for("index"))
 
 # Responds to fetch with table contents
 def admin_data():
@@ -33,17 +38,17 @@ def add_product():
 
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
-            print(filename)
-            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            image.save(os.path.join('static/images/products/', filename))
         
-        sql = ''' INSERT INTO Products(Brand,Model,Description,Category_ID,Price,Image_file)
-                    VALUES(?,?,?,?,?,?) '''
+        sql = ''' INSERT INTO Products(ID,Brand,Model,Description,Category_ID,Price,Image_file)
+                    VALUES(?,?,?,?,?,?,?) '''
         
         res = cur.execute("SELECT ID FROM Categories WHERE Name = ?", (category, ))
         category = res.fetchall()[0][0]
 
         try:
             cur.execute(sql, (
+                    str(uuid4()),
                     brand, 
                     model, 
                     description, 

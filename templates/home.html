@@ -5,29 +5,40 @@
 {% endblock %}
 
 {% block head_inners %}
-    <script defer src="static/bannerFetch.js"></script>
+    <script defer src="{{ url_for('static', filename='js/bannerFetch.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_styles.css') }}">
 {% endblock %}
 
 {% block content %}
     <div id="banner">
         <h1 style="
-            padding-left:50px;
-            padding-top: 80px;
+            padding-left: 50px;
+            padding-top: 60px;
+            margin-bottom: 0px;
             font-weight: bold;
             font-style: italic;
-            font-size: 3em;
+            font-size: 3.5em;
             color: red;
             "
             >Discount sales...</h1>
             <h1 style="
-            padding-left:70px;
+            padding-left: 70px;
             padding-top: 0px;
             font-weight: bold;
             font-style: italic;
-            font-size: 5em;
+            font-size: 4em;
             color: blue;
             "
             >Just today</h1>
+            <h1 style="
+            padding-left: 50px;
+            padding-top: 0px;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 3em;
+            color: rgb(18, 100, 231);
+            ">Great quality for low prices
+            </h1>
             <ul id="productsBannerList">
             </ul>
     </div>

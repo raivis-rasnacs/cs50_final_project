@@ -35,26 +35,23 @@ function showFiltered(products) {
     while (productsGrid.children.length > 0) {
         productsGrid.children[0].remove();
     }
-    console.log(products);
     
     for (product of products["products"]) {
         var productLink = document.createElement("a");
-        productLink.setAttribute("href", `products/<${product[0]}>`)
+        productLink.setAttribute("href", `products/${product[0]}`)
         var productCard = document.createElement("div");
         productCard.classList.add("product-card", "card");
         if (product[6] == null) {
             productCard.innerHTML = `
-            <img class="card-img-top product-img" src="static/images/products/no-photo.jpg" alt="">
-            <h5 class="card-title">${product[1]} ${product[2]}</h5>
-            <h6 class="card-text">${product[5]}€</h6>`
+            <img class="card-img-top product-img" src="static/images/products/no-photo.jpg" alt="">`;
         }
         else {
             productCard.innerHTML = `
-            <img class="card-img-top product-img" src="static/images/products/${product[6]}" alt="">
-            <h5 class="card-title">${product[1]} ${product[2]}</h5>
-            <h6 class="card-text">${product[5]}€</h6>`
+            <img class="card-img-top product-img" src="static/images/products/${product[6]}" alt="">`;
         }
-        
+        productCard.innerHTML += `
+        <h5 class="card-title">${product[1]} ${product[2]}</h5>
+        <h6 class="card-text">${product[5]}€</h6>`;
         productLink.append(productCard);
         productsGrid.append(productLink);
     }
