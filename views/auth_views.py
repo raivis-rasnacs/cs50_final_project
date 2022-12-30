@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from werkzeug.security import check_password_hash, generate_password_hash
 from db_conn import cur, con
 from uuid import uuid4
+from helpers import set_cart_size_badge
 
 def register():
     if request.method == "POST":
@@ -52,6 +53,7 @@ def login():
                 session["user_id"] = user[0][0]
                 session["user_name"] = username
                 session["user_role"] = user[0][2]
+                set_cart_size_badge()
                 flash("You are logged in")
             else:
                 flash("Wrong password")

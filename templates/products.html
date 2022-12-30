@@ -17,8 +17,18 @@
             </li>
         {% endfor %}
     </ul>
-    <button class="btn btn-primary" onclick="filtersFetch()" style="margin-top: 10px; width: 100%;">Apply filters</button>
     <hr>
+    <ul id="order-menu" class="nav" style="margin-top: 0px;">
+        <li class="nav-item">
+            <input checked type="radio" class="form-check-input sorting" name="prices-order" id="asc">
+            <label for="asc" class="form-check-label">Prices to highest</label>
+        </li>
+        <li class="nav-item">
+            <input type="radio" class="form-check-input sorting" name="prices-order" id="desc">
+            <label for="desc" class="form-check-label">Prices to lowest</label>
+        </li>
+    </ul>
+    <button class="btn btn-primary" onclick="filtersFetch()" style="margin-top: 15px; width: 100%;">Apply filters</button>
 {% endblock %}
 
 {% block content %}

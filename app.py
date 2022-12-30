@@ -27,7 +27,7 @@ app.add_url_rule('/admin/view_data', view_func=admin_views.admin_data)
 app.add_url_rule('/admin/new_product', view_func=admin_views.add_product)
 
 # Products
-app.add_url_rule('/products', view_func=product_views.all_products)
+app.add_url_rule('/products/', view_func=product_views.filter_products)
 app.add_url_rule('/products/<id>', view_func=product_views.show_product)
 app.add_url_rule('/products/filter', view_func=product_views.filter_products)
 

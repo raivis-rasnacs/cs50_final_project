@@ -7,16 +7,26 @@ def show_product(id):
     return render_template("product_page.html", product=product[0])
 
 def filter_products():
+    print(1)
     if request.method == "POST":
         selectedCategories = request.get_json()["selectedCategories"]
+        order = request.get_json()["sortingOrder"]
         productsInCategories = []
-        for category in selectedCategories:
-            res = cur.execute("SELECT * FROM Products WHERE Category_ID = (SELECT ID FROM Categories WHERE Name = ?)", (category,))
-            productsInCategories += res.fetchall()
+        if order == "asc":
+            for category in selectedCategories:
+                res = cur.execute("SELECT * FROM Products WHERE Category_ID = (SELECT ID FROM Categories WHERE Name = ?) ORDER BY Price ASC", (category,))
+                productsInCategories += res.fetchall()
+        else:
+            for category in selectedCategories:
+                res = cur.execute("SELECT * FROM Products WHERE Category_ID = (SELECT ID FROM Categories WHERE Name = ?) ORDER BY Price DESC", (category,))
+                productsInCategories += res.fetchall()
         return {"products":productsInCategories}
+    else:
+        return render_template("products.html")
 filter_products.methods = ["POST", "GET"]
 
 def all_products():
+    print(2)
     if request.method == "POST":
         selectedCategory = request.form.get("categoryFilter")
         order = request.form.get("order")

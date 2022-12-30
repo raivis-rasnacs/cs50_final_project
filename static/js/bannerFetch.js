@@ -34,7 +34,7 @@ function showProducts(products) {
         oldPrice.textContent = `${parseFloat(products["products"][i][5] + parseFloat(20)).toFixed(2)}$`;
         const newPrice = document.createElement("h3");
         newPrice.classList.add("newPriceTag");
-        newPrice.textContent = `${parseFloat(products["products"][i][5].toFixed(2))}$`
+        newPrice.textContent = `${parseFloat(products["products"][i][5]).toFixed(2)}$`
         newProduct.append(image, name, oldPrice, newPrice);
         link.append(newProduct);
         listItem.append(link);

@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from db_conn import cur, con
 from uuid import uuid4
-from helpers import logged_in
+from helpers import logged_in, set_cart_size_badge
 
 def add_to_cart(id):
     if not logged_in():
@@ -21,6 +21,7 @@ def add_to_cart(id):
         sql = 'INSERT INTO Cart_items(ID,Product_ID,Cart_ID) VALUES(?,?,?)'
         cur.execute(sql, (str(uuid4()), id, cart_id))
         con.commit()
+        set_cart_size_badge()
         flash("Product added to your cart")
         return redirect(url_for("show_product", id=id))
     except:
@@ -36,6 +37,7 @@ def new_cart(user_id):
     con.commit()
     return cart_id
 
+
 def view_cart():
     res = cur.execute('''SELECT Products.Brand, Products.Model, COUNT(*) 
                         FROM Cart_items 
@@ -45,3 +47,5 @@ def view_cart():
                         (session["user_id"], ))
     items = res.fetchall()
     return render_template("cart.html", items=items)
+
+

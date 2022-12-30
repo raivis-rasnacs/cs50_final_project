@@ -14,6 +14,8 @@ function filtersFetch() {
         selectedCategories = [...allCategories];
     }
 
+    var order = document.querySelector(".sorting:checked");
+
     fetch("/products/filter",
     {
         headers : {
@@ -21,7 +23,8 @@ function filtersFetch() {
         },
         method: "POST",
         body : JSON.stringify( {
-            'selectedCategories' : selectedCategories
+            'selectedCategories' : selectedCategories,
+            'sortingOrder' : order
         })
     })
     .then(response => response.json())
@@ -51,7 +54,7 @@ function showFiltered(products) {
         }
         productCard.innerHTML += `
         <h5 class="card-title">${product[1]} ${product[2]}</h5>
-        <h6 class="card-text">${product[5]}€</h6>`;
+        <h5 class="card-text">${product[5].toFixed(2)}$</h5>`;
         productLink.append(productCard);
         productsGrid.append(productLink);
     }

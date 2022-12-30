@@ -3,7 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 
 def about():
     return render_template("custom.html", 
-                            content="Just a simple Flask project for CS50", 
+                            content='''Just a simple e-commerce project for CS50\nBuilt with Flask and Bootstrap''', 
                             title="About")
 
 def payment():
