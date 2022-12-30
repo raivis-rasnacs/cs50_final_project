@@ -8,12 +8,12 @@
     <div class="container" style="margin-top: 10px;">
         <div class="row">
             <div class="col-12 col-md-4">
-                <a href="/static/images/products/{{ product[6] }}">
+                <a href="/static/images/{{ product[6] }}">
                     <div style="position: relative;">
                     {% if product[6] != None %}
-                        <img title="Click to enlarge" style="width:100%;" src="/static/images/products/{{ product[6] }}" alt="product_photo">
+                        <img title="Click to enlarge" style="width:100%;" src="/static/images/{{ product[6] }}" alt="product_photo">
                         {% else %}
-                        <img style="width:100%;" src="/static/images/products/no-photo.jpg" alt="product_photo">
+                        <img style="width:100%;" src="/static/images/no-photo.jpg" alt="product_photo">
                     {% endif %}
                     <span title="Click to enlarge" style="
                         font-size: 2em;
@@ -32,6 +32,4 @@
             </div>
         </div>
     </div>
-    
-    
 {% endblock %}

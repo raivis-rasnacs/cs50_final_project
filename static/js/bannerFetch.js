@@ -25,7 +25,7 @@ function showProducts(products) {
         newProduct.classList.add("bannerProductDiv");
         newProduct.id = `product${i}`;
         const image = document.createElement("img");
-        image.src = `/static/images/products/${products["products"][i][6]}`;
+        image.src = `/static/images/${products["products"][i][6]}`;
         image.classList.add("bannerProductImg");
         const name = document.createElement("h3");
         name.textContent = `${products["products"][i][1]} ${products["products"][i][2]}`;

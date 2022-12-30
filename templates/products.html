@@ -12,8 +12,8 @@
     <ul class="nav">
         {% for category in categories %}
             <li class="nav-item">
-                <input type="checkbox" class="form-check-input category-item" name="{{ category[1] }}">
-                <label for="{{ category[1] }}" class="form-check-label">{{ category[1] }}</label>
+                <input type="checkbox" class="form-check-input category-item" name="{{ category[0] }}">
+                <label for="{{ category[0] }}" class="form-check-label">{{ category[0] }}</label>
             </li>
         {% endfor %}
     </ul>
@@ -34,19 +34,5 @@
 {% block content %}
     <div id="productsGrid" class="card-columns">
     </div>
-{% endblock %}
-
-{% block filters %}
-<div id="filters" class="container-fluid">
-    <button onclick="document.getElementById('order').value='toLowest'; document.getElementById('applyFilter').submit();" class="nav-item filter-btn">Price (to lowest)</button>
-    <button onclick="document.getElementById('order').value='toHighest'; document.getElementById('applyFilter').submit();" class="nav-item filter-btn">Price (to highest)</button>
-
-    <form id="applyFilter" action="/" method="post">
-        <input hidden id="selectedCategory" name="selectedCategory" value="{{ selectedCategory }}" type="text"></input>
-        <input hidden id="order" name="order" type="text"></input>
-    </form>
-</div>
-
-<p>{{ selectedCategory }}</p>
 {% endblock %}
 
