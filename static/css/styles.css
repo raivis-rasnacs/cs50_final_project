@@ -64,10 +64,14 @@ hr {
     #search-box input {
         padding-left: 0px !important;
     }
+
+    .nav > .nav-item:has(#price-range) {
+        width: 100%;
+    }
   }
 
 @media only screen and (min-width: 992px) {
-    .nav > .nav-item {
+    .nav > .nav-item.full-width {
         width: 100%;
     }
 }

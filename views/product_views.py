@@ -25,5 +25,10 @@ def filter_products(search_param = ""):
             categories = res.fetchall()
         res = cur.execute("SELECT Name FROM Categories ORDER BY Name ASC;")
         categories = res.fetchall()
-        return render_template("products.html", categories=categories, search_param=search_param)
+
+        # Gets highest price for filter
+        res = cur.execute("SELECT MAX(Price) FROM Products;")
+        highestPrice = res.fetchall()
+
+        return render_template("products.html", categories=categories, search_param=search_param, highestPrice=highestPrice)
 filter_products.methods = ["POST", "GET"]

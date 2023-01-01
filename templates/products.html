@@ -15,12 +15,13 @@
         </script>
     {% endif %}
     <script defer src="{{ url_for('static', filename='js/filtersFetch.js') }}"></script>
+    
 {% endblock %}
 
 {% block secondary_content %}
     <ul class="nav">
         {% for category in categories %}
-            <li class="nav-item">
+            <li class="nav-item full-width">
                 <input type="checkbox" class="form-check-input category-item" name="{{ category[0] }}">
                 <label for="{{ category[0] }}" class="form-check-label">{{ category[0] }}</label>
             </li>
@@ -28,20 +29,40 @@
     </ul>
     <hr>
     <ul id="order-menu" class="nav" style="margin-top: 0px;">
-        <li class="nav-item">
+        <li class="nav-item full-width"><p style="margin-bottom: 0px;">Price order</p></li>
+        <li class="nav-item full-width">
             <input checked type="radio" class="form-check-input sorting" name="prices-order" id="asc">
-            <label for="asc" class="form-check-label">Prices to highest</label>
+            <label for="asc" class="form-check-label">To highest</label>
         </li>
-        <li class="nav-item">
+        <li class="nav-item full-width">
             <input type="radio" class="form-check-input sorting" name="prices-order" id="desc">
-            <label for="desc" class="form-check-label">Prices to lowest</label>
+            <label for="desc" class="form-check-label">To lowest</label>
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav">
+        <li class="nav-item full-width">
+            <label id="price-filter-label" for="price-range" class="form-range-label">Prices up to $</label>
+            <input autocomplete="off" onchange="setActualPrice();" class="form-range full-width" type="range" name="price-limit" id="price-range" max={{highestPrice[0][0]}}>
         </li>
     </ul>
     <button class="btn btn-primary" onclick="filtersFetch()" style="margin-top: 15px; width: 100%;">Apply filters</button>
-{% endblock %}
+
+    <script defer type="text/javascript" >
+        var priceRange = document.getElementById("price-range");
+        priceRange.value = priceRange.max;
+
+        function setActualPrice() {
+            document.getElementById("price-filter-label").textContent = `Prices up to ${parseFloat(document.getElementById("price-range").value).toFixed(2)}$`;
+        }
+        setActualPrice();
+    </script>
+    {% endblock %}
 
 {% block content %}
     <div id="productsGrid" class="card-columns">
     </div>
 {% endblock %}
+
+
 
