@@ -6,18 +6,24 @@ def show_product(id):
     product = res.fetchall()
     return render_template("product_page.html", product=product[0])
 
-def filter_products():
+def filter_products(search_param = ""):
     if request.method == "POST":
         selectedCategories = request.get_json()["selectedCategories"]
         order = request.get_json()["sortingOrder"]
-        if order == "asc":
-            res = cur.execute('SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price ASC' % ("?," * len(selectedCategories))[:-1], selectedCategories)
+        searchParam = request.get_json()["searchParameter"]
+        if searchParam != None:
+            res = cur.execute("SELECT * FROM Products WHERE Brand LIKE ? OR Model LIKE ? OR Description LIKE ? ORDER BY Price ASC", ("%"+searchParam+"%", "%"+searchParam+"%", "%"+searchParam+"%", ))
+        elif order == "asc":
+            res = cur.execute("SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price ASC" % ("?," * len(selectedCategories))[:-1], selectedCategories)
         else:
-            res = cur.execute('SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price DESC' % ("?," * len(selectedCategories))[:-1], selectedCategories)
+            res = cur.execute("SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price DESC" % ("?," * len(selectedCategories))[:-1], selectedCategories)
         products = res.fetchall()
         return {"products":products}
     else:
+        if search_param:
+            res = cur.execute("SELECT Name FROM Categories ORDER BY Name ASC;")
+            categories = res.fetchall()
         res = cur.execute("SELECT Name FROM Categories ORDER BY Name ASC;")
         categories = res.fetchall()
-        return render_template("products.html", categories=categories)
+        return render_template("products.html", categories=categories, search_param=search_param)
 filter_products.methods = ["POST", "GET"]

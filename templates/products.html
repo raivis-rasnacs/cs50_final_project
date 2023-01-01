@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block head_inners %}
+    {% if search_param %}
+        <script type="text/javascript">
+            var searchParameter = '{{ search_param }}';
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            var searchParameter = null;
+        </script>
+    {% endif %}
     <script defer src="{{ url_for('static', filename='js/filtersFetch.js') }}"></script>
 {% endblock %}
 

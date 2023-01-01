@@ -24,11 +24,13 @@ function filtersFetch() {
         method: "POST",
         body : JSON.stringify({
             'selectedCategories' : selectedCategories,
-            'sortingOrder' : order
+            'sortingOrder' : order,
+            'searchParameter' : searchParameter
         })
     })
     .then(response => response.json())
     .then(products => {
+        searchParameter = null;
         showFiltered(products);
     })
 }

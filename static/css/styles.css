@@ -24,6 +24,10 @@
     margin: 10px 10px 0px 10px;
 }
 
+.navbar > nav-item > nav-link {
+    padding: 6px;
+}
+
 #filters .filter-btn {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
@@ -56,9 +60,14 @@ hr {
     margin-bottom: 5px;
 }
 
-@media only screen and (min-width: 992px) {
-    /* For mobile phones: */
-    .nav > .nav-item {
-      width: 100%;
+@media only screen and (max-width: 992px) {
+    #search-box input {
+        padding-left: 0px !important;
     }
   }
+
+@media only screen and (min-width: 992px) {
+    .nav > .nav-item {
+        width: 100%;
+    }
+}

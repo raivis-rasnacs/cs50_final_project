@@ -11,6 +11,7 @@ UPLOAD_FOLDER = "static/images/products/"
 app = Flask(__name__,
             static_url_path="/static",
             static_folder="static")
+app.register_error_handler(404, custom_views.page_not_found)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
  
 # Ensure templates are auto-reloaded
@@ -29,6 +30,7 @@ app.add_url_rule('/admin/new_product', view_func=admin_views.add_product)
 # Products
 app.add_url_rule('/products/<id>', view_func=product_views.show_product)
 app.add_url_rule('/products', view_func=product_views.filter_products)
+app.add_url_rule('/products/search/<search_param>', view_func=product_views.filter_products)
 
 # Auth views
 app.add_url_rule('/register', view_func=auth_views.register)
