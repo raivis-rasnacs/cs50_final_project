@@ -1,3 +1,3 @@
 function setSearchDest(searchParam) {
-    document.getElementById("search-trigger").setAttribute("href", `/products/search/${searchParam}`);
+    document.getElementById("search-trigger").setAttribute("action", `/products/search/${searchParam}`);
 }

@@ -47,8 +47,9 @@
                 border-bottom: 1px solid #ced4da;
             }
 
-            #search-trigger {
-                padding: 4px 0px 4px 0px;
+            #search-btn {
+                margin-left: 0px;
+                margin-right: 0px;
             }
         </style>
     </head>
@@ -71,16 +72,18 @@
                         <li class="nav-item">
                         <div id="search-box" class="input-group">
                             <div class="form-outline">
-                            <input oninput="setSearchDest(this.value);" style="
-                                border-radius: 0px;
-                                border-top: none;
-                                border-right: none;
-                                border-left: none;
-                                padding: 8px;"
-                            type="text" name="search-query" id="search-field" class="form-control nav-link" placeholder="Search">
-                            </div>
-                                <a id="search-trigger" href="/products">
-                                    <button id="search-btn" style="
+                                <form id="search-trigger" action="/products" method="GET"></form>
+                                    <input oninput="setSearchDest(this.value);" style="
+                                        border-radius: 0px;
+                                        border-top: none;
+                                        border-right: none;
+                                        border-left: none;
+                                        padding: 8px;
+                                        display: inline-block;
+                                        width: auto;"
+                                    type="text" form="search-trigger" name="search-query" id="search-field" class="form-control" placeholder="Search">
+                                    </div>
+                                    <button id="search-btn" form="search-trigger" style="
                                         border-radius: 0px;
                                         border-top: none;
                                         border-right: none;
@@ -89,8 +92,9 @@
                                     type="submit" class="btn btn-outline-primary">
                                     <i class="bi bi-search"></i>
                                     </button>
-                                </a>
+                                </form>
                         </div>
+                        </li>
                     </ul>
 
                     <!-- Nav links to the right -->
@@ -141,6 +145,12 @@
                 <div class="main-content col-xs-12 col-lg-10 h-100">
                     {% block content %}
                     {% endblock %}
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="navbar navbar-light"></div>
+                <div class="mt-2 container-fluid text-center">
+                    <h6 style="font-weight: normal;">Project made with Flask&Bootstrap specifically for CS50.</h6>
                 </div>
             </div>
         </div>
