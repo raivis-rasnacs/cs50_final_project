@@ -15,7 +15,8 @@ function filtersFetch() {
     }
 
     var order = document.querySelector(".sorting:checked").id;
-    
+    var highestPrice = document.getElementById("price-range").value;
+
     fetch("/products",
     {
         headers : {
@@ -25,7 +26,8 @@ function filtersFetch() {
         body : JSON.stringify({
             'selectedCategories' : selectedCategories,
             'sortingOrder' : order,
-            'searchParameter' : searchParameter
+            'searchParameter' : searchParameter,
+            'highestPrice' : highestPrice
         })
     })
     .then(response => response.json())

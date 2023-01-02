@@ -11,12 +11,17 @@ def filter_products(search_param = ""):
         selectedCategories = request.get_json()["selectedCategories"]
         order = request.get_json()["sortingOrder"]
         searchParam = request.get_json()["searchParameter"]
+        highestPrice = request.get_json()["highestPrice"]
         if searchParam != None:
             res = cur.execute("SELECT * FROM Products WHERE Brand LIKE ? OR Model LIKE ? OR Description LIKE ? ORDER BY Price ASC", ("%"+searchParam+"%", "%"+searchParam+"%", "%"+searchParam+"%", ))
         elif order == "asc":
-            res = cur.execute("SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price ASC" % ("?," * len(selectedCategories))[:-1], selectedCategories)
+            sql = "SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) AND Price <= ? ORDER BY Price ASC" % ("?," * len(selectedCategories))[:-1]
+            selectedCategories += [highestPrice] # Adds price limit to query params
+            res = cur.execute(sql, selectedCategories)
         else:
-            res = cur.execute("SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) ORDER BY Price DESC" % ("?," * len(selectedCategories))[:-1], selectedCategories)
+            sql = "SELECT * FROM Products WHERE Category_ID IN (SELECT ID FROM Categories WHERE Name IN (%s)) AND Price <= ? ORDER BY Price DESC" % ("?," * len(selectedCategories))[:-1]
+            selectedCategories += [highestPrice] # Adds price limit to query params
+            res = cur.execute(sql, selectedCategories)
         products = res.fetchall()
         return {"products":products}
     else:
