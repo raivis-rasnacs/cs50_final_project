@@ -57,7 +57,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <div class="navbar-brand"><span><a href="/">Daddy's Tools</a></span></div>
+                <div class="navbar-brand"><span><a href="/"><img style="height: 20px;" src="{{ url_for('static', filename='images/logo.png') }}" alt=""></a></span></div>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -108,7 +108,13 @@
                             <a class="nav-link" href="/view_cart">
                                 <span class="bi bi-cart"></span>
                                 My Cart
-                                <span class="badge bg-dark">{{session["user_cart_size"]}}</span>
+                                <span class="badge bg-primary">{{session["user_cart_size"]}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/orders">
+                                <span class="bi bi-journal"></span>
+                                My orders
                             </a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>

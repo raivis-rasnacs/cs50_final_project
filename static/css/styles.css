@@ -14,10 +14,6 @@
     margin-bottom: 10px !important;
 }
 
-#filters {
-    padding: 0px 10px 0px 10px;
-}
-
 .nav > .nav-item {
     border: none;
     border-radius: 0.25rem;
@@ -26,14 +22,6 @@
 
 .navbar > nav-item > nav-link {
     padding: 6px;
-}
-
-#filters .filter-btn {
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 0.25rem;
-    background-color: transparent;
-    margin: 10px 0px 0px 0px;
-    padding: 5px 15px 5px 15px;
 }
 
 .nav-item > a {
@@ -71,6 +59,10 @@ hr {
 #cart-actions button {
     margin-top: 10px;
   }
+
+#orders-actions button {
+margin-top: 10px;
+}
 
 @media only screen and (max-width: 992px) {
     #search-box input {

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Orders
+{% endblock %}
+
+{% block head_inners %}
+{% endblock %}
+
+{% block secondary_content %}
+<div id="orders-actions">
+    <a href="/clear_orders">
+        <button style="width: 100%;" class="btn btn-primary">Clear order history</button>
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <th>Order number</th>
+            <th>Order date</th>
+            <th>Delivery</th>
+        </tr>
+        {% if orders|length > 0 %}
+            {% for order in orders %}
+                <tr>
+                    <td>
+                        <a href="orders/{{ order[0] }}">{{ order[0] }}</a>
+                    </td>
+                    <td>{{ order[1] }}</td>
+                    <td>{{ order[2] }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <th style="font-weight: normal;" colspan=3>No orders yet...</th>
+            </tr>
+        {% endif %}
+    </table>
+{% endblock %}

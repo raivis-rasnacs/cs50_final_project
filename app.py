@@ -45,6 +45,9 @@ app.add_url_rule('/clear_cart', view_func=cart_views.clear_cart)
 # Order views
 app.add_url_rule('/new_order', view_func=order_views.new_order)
 app.add_url_rule('/place_order', view_func=order_views.place_order)
+app.add_url_rule('/orders', view_func=order_views.view_orders)
+app.add_url_rule('/orders/<id>', view_func=order_views.show_order)
+app.add_url_rule('/clear_orders', view_func=order_views.clear_orders)
 
 # Custom views
 app.add_url_rule('/about', view_func=custom_views.about)

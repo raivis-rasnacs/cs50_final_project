@@ -3,6 +3,7 @@ from db_conn import cur, con
 from uuid import uuid4
 from helpers import logged_in, set_cart_size_badge
 from datetime import datetime
+from random import randrange as rnd
 
 def new_order():
     res = cur.execute('''SELECT COUNT(*) 
@@ -21,14 +22,15 @@ def new_order():
     print(user)
     return render_template("new_order.html", deliveryOptions=deliveryOptions, userInfo=user)
 
+
 def place_order():
     # Makes new order
     if request.method == "POST":
         try:
             delivery = request.form["delivery-type"]
             sql = 'INSERT INTO Orders(ID, Customer_ID, Order_date, Delivery_type_ID) VALUES(?, ?, ?, ?)'
-            order_id = uuid4()
-            cur.execute(sql, (str(order_id),
+            order_id = "".join([str(rnd(0, 10)) for _ in range(8)])
+            cur.execute(sql, (order_id,
                             session["user_id"],
                             datetime.now().strftime("%Y/%m/%d %H:%M"),
                             delivery, ))
@@ -51,5 +53,40 @@ def place_order():
         except:
             flash("Something went wrong")
         return redirect(url_for("clear_cart"))
-
 place_order.methods = ["GET", "POST"]
+
+
+def view_orders():
+    res = cur.execute('''SELECT Orders.ID, Orders.Order_date, Delivery_options.Company 
+                         FROM Orders 
+                         JOIN Delivery_options ON Delivery_options.ID = Orders.Delivery_type_ID 
+                         WHERE Customer_ID = ?''', 
+                         (session["user_id"], ))
+    orders = res.fetchall()
+    return render_template("orders.html", orders=orders)
+
+
+def show_order(id):
+    res = cur.execute('''SELECT Products.Brand, Products.Model, Products.Price 
+                         FROM Products 
+                         JOIN Ordered_items ON Ordered_items.Product_ID = Products.ID 
+                         WHERE Order_ID = ?''', (id, ))
+    items = res.fetchall()
+    print(items)
+    return render_template("order_items.html", id=id, items=items)
+
+
+def clear_orders():
+    res = cur.execute("SELECT ID FROM Orders WHERE Customer_ID = ?", (session["user_id"], ))
+    orders = res.fetchall()
+    orders = [order[0] for order in orders]
+    try:
+        for order in orders:
+            cur.execute("DELETE FROM Ordered_items WHERE Order_ID = ?", (order, ))
+            con.commit()
+            cur.execute("DELETE FROM Orders WHERE ID = ?", (order, ))
+            con.commit()
+        flash("All history cleared")
+    except:
+        flash("Something went wrong")
+    return redirect(url_for("view_orders"))

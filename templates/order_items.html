@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Order {{ id }}
+{% endblock %}
+
+{% block head_inners %}
+{% endblock %}
+
+{% block secondary_content %}
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <th class="text-center" colspan=3>Items in order #{{ id }}</th>
+        </tr>
+        <tr>
+            <th>Product name</th>
+            <th>Price</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td>{{ item[0] }} {{ item[1] }}</td>
+                <td>{{ "%.2f"|format(item[2]) }}$</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
