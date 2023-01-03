@@ -68,6 +68,10 @@ hr {
     margin-left: 5px;
 }
 
+#cart-actions button {
+    margin-top: 10px;
+  }
+
 @media only screen and (max-width: 992px) {
     #search-box input {
         padding-left: 0px !important;

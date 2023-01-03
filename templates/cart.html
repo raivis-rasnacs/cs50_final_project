@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block head_inners %}
-    <!-- no inners yet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block secondary_content %}
+<div id="cart-actions">
+    <a href="/clear_cart">
+        <button style="width: 100%;" class="btn btn-primary">Clear my cart</button>
+    </a>
+    <a href="/new_order">
+        <button style="width: 100%;" class="btn btn-primary">Place order</button>
+    </a>
+</div>
 {% endblock %}
 
 {% block content %}

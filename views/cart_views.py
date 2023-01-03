@@ -11,7 +11,6 @@ def add_to_cart(id):
     # Checks if user has cart already
     res = cur.execute("SELECT ID FROM Carts WHERE Customer_ID = ?", (session["user_id"], ))
     cart = res.fetchall()
-    print(cart)
     if len(cart) == 0:
         cart_id = new_cart(session["user_id"])
     else:
@@ -47,5 +46,13 @@ def view_cart():
                         (session["user_id"], ))
     items = res.fetchall()
     return render_template("cart.html", items=items)
+
+
+def clear_cart():
+    sql = 'DELETE FROM Cart_items WHERE Cart_ID = (SELECT ID FROM Carts WHERE Customer_ID = ?)'
+    cur.execute(sql, (session["user_id"], ))
+    con.commit()
+    set_cart_size_badge()
+    return redirect(url_for("view_cart"))
 
 

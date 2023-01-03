@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Daddy's Tools :: New Order
+{% endblock %}
+
+{% block head_inners %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form_styles.css') }}">
+    <style>
+        p:nth-child(n+2) {
+            margin-top: 5px;
+        }
+
+        p {
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block secondary_content %}
+{% endblock %}
+
+{% block content %}
+    <form style="padding-top: 10px; width: 700px;" action="/place_order" method="POST">
+        <p>Recipient</p>
+        <input disabled value="{{ userInfo[3] }} {{userInfo[4] }}" class="form-control" type="text">
+        <p>Address</p>
+        <input disabled value="{{ userInfo[7] }}" class="form-control" type="text">
+        <p>Delivery type</p>
+        <select class="form-select" name="delivery-type" id="delivery-list">
+            {% for option in deliveryOptions %}
+            <option value="{{ option[0] }}">{{ option[1] }} | {{ "%.2f"|format(option[2]) }}$</option>
+            {% endfor %}
+        </select>
+        <p style="margin-top: 10px;">Additional info</p>
+        <textarea class="form-control" name="" id="" cols="30" rows="5"></textarea>
+        <input style="margin-top: 10px;" class="btn btn-primary" type="submit" value="Submit order">
+    </form>
+{% endblock %}
