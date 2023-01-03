@@ -19,7 +19,6 @@ def admin_data():
     if tableName == "Products":
         res = cur.execute("SELECT Products.ID, Brand, Model, Products.Description, Name, Price, Image_file FROM Products INNER JOIN Categories ON Categories.id = Products.Category_ID;")
         tableData = res.fetchall()
-        print(tableData)
     else:
         res = cur.execute("SELECT * FROM {}".format(tableName))
         tableData = res.fetchall()
@@ -60,7 +59,6 @@ def add_product():
             flash("Product added!")
             return redirect(url_for("add_product"))
         except sqlite3.Error as e:
-            print(e)
             flash("Something went wrong!")
             return redirect(url_for("add_product"))
     else:

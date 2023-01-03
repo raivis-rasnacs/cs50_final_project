@@ -5,7 +5,7 @@ from helpers import logged_in, set_cart_size_badge
 
 def add_to_cart(id):
     if not logged_in():
-        flash("You must be logged in to use cart")
+        flash("You must be logged in to use cart. Make an account if you don't have one!")
         return redirect(url_for("show_product", id=id))
 
     # Checks if user has cart already
@@ -38,21 +38,32 @@ def new_cart(user_id):
 
 
 def view_cart():
-    res = cur.execute('''SELECT Products.Brand, Products.Model, COUNT(*) 
+    res = cur.execute('''SELECT Products.Brand, Products.Model, COUNT(*), Products.Price 
                         FROM Cart_items 
                         JOIN Products ON Products.ID = Cart_items.Product_ID
                         WHERE Cart_ID = (SELECT ID FROM Carts WHERE Customer_ID = ?) 
                         GROUP BY Products.ID''', 
                         (session["user_id"], ))
     items = res.fetchall()
-    return render_template("cart.html", items=items)
+    res = cur.execute('''SELECT SUM(Price) 
+                        FROM Cart_items 
+                        JOIN Products ON Products.ID = Cart_items.Product_ID
+                        WHERE Cart_ID = (SELECT ID FROM Carts WHERE Customer_ID = ?) 
+                        ''', 
+                        (session["user_id"], ))
+    total = res.fetchall()[0][0]
+    return render_template("cart.html", items=items, total=total)
 
 
 def clear_cart():
-    sql = 'DELETE FROM Cart_items WHERE Cart_ID = (SELECT ID FROM Carts WHERE Customer_ID = ?)'
-    cur.execute(sql, (session["user_id"], ))
-    con.commit()
-    set_cart_size_badge()
+    try:
+        sql = 'DELETE FROM Cart_items WHERE Cart_ID = (SELECT ID FROM Carts WHERE Customer_ID = ?)'
+        cur.execute(sql, (session["user_id"], ))
+        con.commit()
+        set_cart_size_badge()
+        flash("Cart cleared")
+    except:
+        flash("Something went wrong")
     return redirect(url_for("view_cart"))
 
 
