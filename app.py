@@ -53,6 +53,7 @@ app.add_url_rule('/clear_orders', view_func=order_views.clear_orders)
 app.add_url_rule('/about', view_func=custom_views.about)
 app.add_url_rule('/payment', view_func=custom_views.payment)
 
+'''
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -60,6 +61,6 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
-
+'''
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
